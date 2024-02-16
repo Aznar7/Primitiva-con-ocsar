@@ -46,8 +46,8 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
     }
 
     /**
-     * //TODO: Completasr
-     * @return //TODO: Completar
+     * Permet a l'usuari introduir la seva aposta per consola amb control d'errors
+     * @return array de 7 int
      * @since 1.0
      */
     private static int[] introduirAposta(){
