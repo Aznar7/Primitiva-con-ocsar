@@ -123,10 +123,10 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
     }
 
     /**
-     * //TODO: Completar
-     * @param aposta //TODO: Completar
-     * @param combinacioGuanyadora //TODO: Completar
-     * @return //TODO: Completar
+     * Busca quants numeros ha encertat l'usuari i diu quina es la suma total del premi
+     * @param aposta array de 6 int (entre 1 i 49) i un int (entre 0 i 9) introduit per l'usuari per consola
+     * @param combinacioGuanyadora array de 6 int (entre 1 i 49) i un int (entre 0 i 9) (tot aleatori)
+     * @return int (premi total)
      * @since 1.0
      */
     private static int comprovarEncerts(int[] aposta, int[] combinacioGuanyadora){
