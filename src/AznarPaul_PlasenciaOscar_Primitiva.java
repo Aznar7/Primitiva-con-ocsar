@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 /**
+ * https://github.com/Aznar7/Primitiva-con-ocsar.git
  * Programa de simulació de La Primitiva
  * @auhor Paul Aznar i Oscar Plasencia
  * @version 1.0
