@@ -40,10 +40,13 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
 
             switch (opcion) {
                 case 1:
-                    introducirAposta();
+                    int[] aposta = introduirAposta();
                     break;
                 case 2:
-                    mostrarCombinacionGanadora();
+                    int[] ganadora = calcularCombinacioGuanyadora();
+                    mostrarCombinacionGanadora(ganadora);
+
+                    System.out.println("Has ganado " + comprovarEncerts(aposta, ganadora));
                     break;
                 case 3:
                     System.out.println("¡Gracias por jugar! ¡Hasta luego!");
@@ -61,54 +64,37 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
      * @since 1.0
      */
     private static int[] introduirAposta(){
-        System.out.println("Introdueix la teva aposta: ");
+        System.out.println("Introduce tu apuesta: ");
         int[] aposta = new int[7];
 
         for (int i=0; i<6; i++) {
             int error = 0;
+            int temporal;
             do {
                 error = 0;
 
-                System.out.println("Introdueix el numero " + (i+1) + " de la teva aposta: ");
+                System.out.println("Introduce el numero " + (i + 1) + " de tu apuesta: ");
                 boolean esInt = input.hasNextInt();
 
                 if (esInt) {
-                    aposta[i] = input.nextInt();
+                    temporal = input.nextInt();
 
-                    if (aposta[i] < 1 || aposta[i] > 49) {
-                        System.out.println("Ha de ser un numero entre 0 i 50 (no inclosos)");
+                    if (temporal < 1 || temporal > 49) {
+                        System.out.println("Tiene que ser un numero entre 0 i 50 (no incluidos)");
+                        error += 1;
                     }
 
-                    for (int j=0; j < i; j++) {
-                        if (aposta[j] == aposta[i]) {
-                            System.out.println("El numero que has introduit ja esta registrat");
+                    for (int j = 0; j < i; j++) {
+                        if (temporal == aposta[j]) {
+                            System.out.println("El numero que has introducido ya esta registrado");
                             error += 1;
                         }
                     }
 
-                } else {
-                    System.out.println("No has introduit un enter.");
-                    error += 1;
-                    input.nextLine();
-                }
-
-            } while (error != 0);
-
-            do {
-                error = 0;
-
-                System.out.println("Introdueix el numero 7 de la teva aposta: ");
-                boolean esInt = input.hasNextInt();
-
-                if (esInt) {
-                    aposta[i] = input.nextInt();
-
-                    if (aposta[i] < 0 || aposta[i] > 9) {
-                        System.out.println("Ha de ser un numero entre 0 i 9 (inclosos)");
-                    }
+                    if (error == 0) { aposta[i] = temporal; };
 
                 } else {
-                    System.out.println("No has introduit un enter.");
+                    System.out.println("No has introducido un entero.");
                     error += 1;
                     input.nextLine();
                 }
@@ -116,14 +102,39 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
             } while (error != 0);
         }
 
+        int error = 0;
+        do {
+            error = 0;
+                System.out.println("Introduce el numero 7 de tu apuesta: ");
+                boolean esInt = input.hasNextInt();
+
+                if (esInt) {
+                    int temporal = input.nextInt();
+
+                    if (temporal < 0 || temporal > 9) {
+                        System.out.println("Tiene que ser un numero entre 0 i 9 (incluidos)");
+                        error += 1;
+                    }
+
+                    if (error == 0) { aposta[6] = temporal; };
+
+                } else {
+                    System.out.println("No has introducido un entero.");
+                    error += 1;
+                    input.nextLine();
+                }
+
+            } while (error != 0);
+
+
         return aposta;
     }
 
     /**
      * Muestra la combinación ganadora generada aleatoriamente.
      */
-    private static void mostrarCombinacionGanadora() {
-        int[] combinacion = calcularCombinacioGuanyadora();
+    private static void mostrarCombinacionGanadora(int[] combinacionGanadora) {
+        int[] combinacion = combinacionGanadora;
         System.out.println("Combinación ganadora: ");
         for (int i = 0; i < 6; i++) {
             System.out.print(combinacion[i] + " ");
@@ -214,13 +225,13 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
             System.out.println(missatge);
             valorCorrecte = llegir.hasNextInt();
             if (!valorCorrecte){
-                System.out.println("ERROR: Valor no enter.");
+                System.out.println("ERROR: Valor no entero.");
                 llegir.nextLine();
             }else{ // Tinc un enter
                 x = llegir.nextInt();
                 llegir.nextLine();
                 if (x < min || x > max){
-                    System.out.println("Opció no vàlida");
+                    System.out.println("Opción no valida");
                     valorCorrecte = false;
                 }
             }
