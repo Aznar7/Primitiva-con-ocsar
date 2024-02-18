@@ -9,7 +9,9 @@ import java.util.Random;
  */
 
 public class AznarPaul_PlasenciaOscar_Primitiva {
+
     static Scanner input = new Scanner(System.in);
+
 
     /**
      * Mètode main executable
@@ -60,9 +62,59 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
      */
     private static int[] introduirAposta(){
         System.out.println("Introdueix la teva aposta: ");
-        int[] aposta = null;
+        int[] aposta = new int[7];
 
-        //TODO: Fer el codi del mètode
+        for (int i=0; i<6; i++) {
+            int error = 0;
+            do {
+                error = 0;
+
+                System.out.println("Introdueix el numero " + (i+1) + " de la teva aposta: ");
+                boolean esInt = input.hasNextInt();
+
+                if (esInt) {
+                    aposta[i] = input.nextInt();
+
+                    if (aposta[i] < 1 || aposta[i] > 49) {
+                        System.out.println("Ha de ser un numero entre 0 i 50 (no inclosos)");
+                    }
+
+                    for (int j=0; j < i; j++) {
+                        if (aposta[j] == aposta[i]) {
+                            System.out.println("El numero que has introduit ja esta registrat");
+                            error += 1;
+                        }
+                    }
+
+                } else {
+                    System.out.println("No has introduit un enter.");
+                    error += 1;
+                    input.nextLine();
+                }
+
+            } while (error != 0);
+
+            do {
+                error = 0;
+
+                System.out.println("Introdueix el numero 7 de la teva aposta: ");
+                boolean esInt = input.hasNextInt();
+
+                if (esInt) {
+                    aposta[i] = input.nextInt();
+
+                    if (aposta[i] < 0 || aposta[i] > 9) {
+                        System.out.println("Ha de ser un numero entre 0 i 9 (inclosos)");
+                    }
+
+                } else {
+                    System.out.println("No has introduit un enter.");
+                    error += 1;
+                    input.nextLine();
+                }
+
+            } while (error != 0);
+        }
 
         return aposta;
     }
@@ -98,8 +150,6 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
         return combinacio;
     }
 
-
-
     /**
      * @param max especifica el valor máximo que puede tener el número aleatorio generado.
      * @param min especifica el valor mínimo que puede tener el número aleatorio generado.
@@ -111,19 +161,39 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
         return random.nextInt((max+1)-min)+min;
     }
 
+    /**
+     * Busca quants numeros ha encertat l'usuari i diu quina es la suma total del premi
+     * @param aposta array de 6 int (entre 1 i 49) i un int (entre 0 i 9) introduit per l'usuari per consola
+     * @param combinacioGuanyadora array de 6 int (entre 1 i 49) i un int (entre 0 i 9) (tot aleatori)
+     * @return int (premi total)
+     * @since 1.0
+     */
+
+
     private static int comprovarEncerts(int[] aposta, int[] combinacioGuanyadora){
         int premi = 0;
         int encerts = 0;
         boolean reintregrament = false;
 
         //Comprobar encerts a la combinació
-        //TODO: Fer el codi del mètode
+        for (int i=0; i<6; i++) {
+            for (int j=0; j<6; j++) {
+                if (aposta[i] == combinacioGuanyadora[j]) {
+                    encerts += 1;
+                }
+            }
+        }
 
         //Comprobar reintegrament
-        //TODO: Fer el codi del mètode
+        if (aposta[6] == combinacioGuanyadora[6]) {
+            reintregrament = true;
+        }
 
         //Calcular premi
-        //TODO: Fer el codi del mètode
+        if (reintregrament == true) {
+            premi += 6;
+        }
+        premi = premi + encerts * 20;
 
         return premi;
     }
