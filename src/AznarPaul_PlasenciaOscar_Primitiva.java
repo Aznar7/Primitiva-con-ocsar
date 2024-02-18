@@ -51,7 +51,7 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
         }
     }
     /**
-    *// Inicializar la apuesta con todos los elementos en 0
+    * Inicializar la apuesta con todos los elementos en 0
     */
     private static void jugar() {
         for (int i = 0; i < aposta.length; i++) {
@@ -59,18 +59,17 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
         }
         int[] aposta = introduirAposta();
         int[] ganadora = calcularCombinacioGuanyadora();
-    int[] combinacion = calcularCombinacioGuanyadora();
         System.out.println("Combinación ganadora: ");
         for (int i = 0; i < 6; i++) {
-        System.out.print(combinacion[i] + " ");
+        System.out.print(ganadora[i] + " ");
     }
-        System.out.println("Reintegro: " + combinacion[6]);
+        System.out.println("Reintegro: " + ganadora[6]);
         System.out.println("El premi final es de " + comprovarEncerts(aposta, ganadora));
 }
 
     /**
-     * //TODO: Completasr
-     * @return //TODO: Completar
+     * //El usuario introduce su apuesta por consola
+     * @return array (6 int entre 1 y 49) + (1 int entre 0 y 9)
      * @since 1.0
      */
     private static int[] introduirAposta(){
