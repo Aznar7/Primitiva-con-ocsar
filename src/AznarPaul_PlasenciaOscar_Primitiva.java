@@ -11,7 +11,7 @@ import java.util.Random;
 public class AznarPaul_PlasenciaOscar_Primitiva {
 
     static Scanner input = new Scanner(System.in);
-
+    static int[] aposta = new int[7];
 
     /**
      * Mètode main executable
@@ -30,9 +30,8 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
         boolean salir = false;
         while (!salir) {
             System.out.println("***** PRIMITIVA ******");
-            System.out.println("1. Introducir apuesta");
-            System.out.println("2. Mostrar combinación ganadora");
-            System.out.println("3. Salir");
+            System.out.println("1. Jugar");
+            System.out.println("2. Salir");
             System.out.print("Seleccione una opción: ");
 
             int opcion = input.nextInt();
@@ -40,15 +39,9 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
 
             switch (opcion) {
                 case 1:
-                    int[] aposta = introduirAposta();
+                    jugar();
                     break;
                 case 2:
-                    int[] ganadora = calcularCombinacioGuanyadora();
-                    mostrarCombinacionGanadora(ganadora);
-
-                    System.out.println("Has ganado " + comprovarEncerts(aposta, ganadora));
-                    break;
-                case 3:
                     System.out.println("¡Gracias por jugar! ¡Hasta luego!");
                     salir = true;
                     break;
@@ -57,6 +50,23 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
             }
         }
     }
+    /**
+    *// Inicializar la apuesta con todos los elementos en 0
+    */
+    private static void jugar() {
+        for (int i = 0; i < aposta.length; i++) {
+            aposta[i] = 0;
+        }
+        int[] aposta = introduirAposta();
+        int[] ganadora = calcularCombinacioGuanyadora();
+    int[] combinacion = calcularCombinacioGuanyadora();
+        System.out.println("Combinación ganadora: ");
+        for (int i = 0; i < 6; i++) {
+        System.out.print(combinacion[i] + " ");
+    }
+        System.out.println("Reintegro: " + combinacion[6]);
+        System.out.println("El premi final es de " + comprovarEncerts(aposta, ganadora));
+}
 
     /**
      * //TODO: Completasr
@@ -105,42 +115,32 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
         int error = 0;
         do {
             error = 0;
-                System.out.println("Introduce el numero 7 de tu apuesta: ");
-                boolean esInt = input.hasNextInt();
+            System.out.println("Introduce el numero 7 de tu apuesta: ");
+            boolean esInt = input.hasNextInt();
 
-                if (esInt) {
-                    int temporal = input.nextInt();
+            if (esInt) {
+                int temporal = input.nextInt();
 
-                    if (temporal < 0 || temporal > 9) {
-                        System.out.println("Tiene que ser un numero entre 0 i 9 (incluidos)");
-                        error += 1;
-                    }
-
-                    if (error == 0) { aposta[6] = temporal; };
-
-                } else {
-                    System.out.println("No has introducido un entero.");
+                if (temporal < 0 || temporal > 9) {
+                    System.out.println("Tiene que ser un numero entre 0 i 9 (incluidos)");
                     error += 1;
-                    input.nextLine();
                 }
 
-            } while (error != 0);
+                if (error == 0) { aposta[6] = temporal; };
+
+            } else {
+                System.out.println("No has introducido un entero.");
+                error += 1;
+                input.nextLine();
+            }
+
+        } while (error != 0);
 
 
         return aposta;
     }
 
-    /**
-     * Muestra la combinación ganadora generada aleatoriamente.
-     */
-    private static void mostrarCombinacionGanadora(int[] combinacionGanadora) {
-        int[] combinacion = combinacionGanadora;
-        System.out.println("Combinación ganadora: ");
-        for (int i = 0; i < 6; i++) {
-            System.out.print(combinacion[i] + " ");
-        }
-        System.out.println("Reintegro: " + combinacion[6]);
-    }
+
     /**
      * /
      * @return Muestra la combinación ganadora generada aleatoriamente.
