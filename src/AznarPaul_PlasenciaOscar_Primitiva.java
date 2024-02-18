@@ -1,16 +1,19 @@
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * Programa de simulació de La Primitiva
- * @auhor //TODO: Nom Alumne
+ * @auhor Paul Aznar i Oscar Plasencia
  * @version 1.0
- * @date //TODO: data
+ * @date 17/02/2024
  */
-//TODO: Fer refractor per canviar el nom de la classe
+
 public class AznarPaul_PlasenciaOscar_Primitiva {
+    static Scanner input = new Scanner(System.in);
+
     /**
      * Mètode main executable
-     * @param args
+     * @param args pasar argumentos de línea de comandos al programa cuando se ejecuta.
      * @since 1.0
      */
     public static void main(String[] args) {
@@ -21,25 +24,33 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
      * //TODO: Completar
      * @since 1.0
      */
-    private static void menuPrincipal(){
-        System.out.println("***** PRIMITIVA ******");
+    private static void menuPrincipal() {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("***** PRIMITIVA ******");
+            System.out.println("1. Introducir apuesta");
+            System.out.println("2. Mostrar combinación ganadora");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
 
-        int[] aposta = introduirAposta();
-        int[] combinacioGuanyadora = calcularCombinacioGuanyadora();
-        int premi;
+            int opcion = input.nextInt();
+            input.nextLine(); // Consumir la nueva línea después de nextInt()
 
-        if (combinacioGuanyadora != null) {
-            System.out.println("La combinació ganadora és: ");
-
-            for (int i = 0; i < combinacioGuanyadora.length - 1; i++) {
-                System.out.print(combinacioGuanyadora[i] + " ");
+            switch (opcion) {
+                case 1:
+                    introducirAposta();
+                    break;
+                case 2:
+                    mostrarCombinacionGanadora();
+                    break;
+                case 3:
+                    System.out.println("¡Gracias por jugar! ¡Hasta luego!");
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
             }
-
-            System.out.println("Reintegrament " + combinacioGuanyadora[combinacioGuanyadora.length - 1]);
         }
-
-        premi = comprovarEncerts(aposta, combinacioGuanyadora);
-        System.out.println("El teu premi és: "+premi+" €");
     }
 
     /**
@@ -57,25 +68,49 @@ public class AznarPaul_PlasenciaOscar_Primitiva {
     }
 
     /**
-     * //TODO: Completar
-     * @return //TODO: Completar
+     * Muestra la combinación ganadora generada aleatoriamente.
+     */
+    private static void mostrarCombinacionGanadora() {
+        int[] combinacion = calcularCombinacioGuanyadora();
+        System.out.println("Combinación ganadora: ");
+        for (int i = 0; i < 6; i++) {
+            System.out.print(combinacion[i] + " ");
+        }
+        System.out.println("Reintegro: " + combinacion[6]);
+    }
+    /**
+     * /
+     * @return Muestra la combinación ganadora generada aleatoriamente.
      * @since 1.0
      */
-    private static int[] calcularCombinacioGuanyadora(){
-        int[] combinacio = null;
+    private static int[] calcularCombinacioGuanyadora() {
+        int[] combinacio = new int[7];
+        Random random = new Random();
 
-        //TODO: Fer el codi del mètode
+
+        for (int i = 0; i < 6; i++) {
+            combinacio[i] = random.nextInt(49) + 1;
+        }
+
+
+        combinacio[6] = random.nextInt(10);
 
         return combinacio;
     }
 
+
+
     /**
-     * //TODO: Completar
-     * @param aposta //TODO: Completar
-     * @param combinacioGuanyadora //TODO: Completar
-     * @return //TODO: Completar
+     * @param max especifica el valor máximo que puede tener el número aleatorio generado.
+     * @param min especifica el valor mínimo que puede tener el número aleatorio generado.
+     * @return retorna un nombre aleatori entre els valors màxims i minims establerts
      * @since 1.0
      */
+    public static int getRandomNumberUsingNextInt(int min, int max){
+        Random random = new Random();
+        return random.nextInt((max+1)-min)+min;
+    }
+
     private static int comprovarEncerts(int[] aposta, int[] combinacioGuanyadora){
         int premi = 0;
         int encerts = 0;
